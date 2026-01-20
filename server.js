@@ -1,5 +1,6 @@
 import express from "express";
 import { connectToDB } from "./models/db.js";
+import bookRoutes from "./routes/booksRoutes.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -8,9 +9,7 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  return res.status(200).json("Hello to the books api");
-});
+app.get("/api/books", bookRoutes);
 
 const appInit = async () => {
   await connectToDB();
