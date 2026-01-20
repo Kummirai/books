@@ -1,5 +1,9 @@
 import { Router } from "express";
 import {
+  addBookValidation,
+  handleValidationErrors,
+} from "../middleware/validator.js";
+import {
   getAllBooksController,
   getBookByIdController,
   addBookController,
@@ -9,6 +13,11 @@ const bookRoutes = Router();
 
 bookRoutes.get("/", getAllBooksController);
 bookRoutes.get("/:id", getBookByIdController);
-bookRoutes.post("/", addBookController);
+bookRoutes.post(
+  "/",
+  addBookValidation,
+  handleValidationErrors,
+  addBookController,
+);
 
 export default bookRoutes;

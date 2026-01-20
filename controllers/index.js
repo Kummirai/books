@@ -37,7 +37,6 @@ const getBookByIdController = async (req, res) => {
 };
 
 const addBookController = async (req, res) => {
-  console.log(req.body);
   const {
     title,
     description,
