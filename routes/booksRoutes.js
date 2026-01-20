@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   addBookValidation,
   handleValidationErrors,
+  mongoIdValidation,
 } from "../middleware/validator.js";
 import {
   getAllBooksController,
@@ -12,7 +13,12 @@ import {
 const bookRoutes = Router();
 
 bookRoutes.get("/", getAllBooksController);
-bookRoutes.get("/:id", getBookByIdController);
+bookRoutes.get(
+  "/:id",
+  mongoIdValidation,
+  handleValidationErrors,
+  getBookByIdController,
+);
 bookRoutes.post(
   "/",
   addBookValidation,

@@ -1,4 +1,4 @@
-import { body, validationResult } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 
 const addBookValidation = [
   body("title").trim().notEmpty().withMessage("Book title cannont be empty"),
@@ -41,6 +41,14 @@ const addBookValidation = [
     .withMessage("Invalid ISBN-13"),
 ];
 
+const mongoIdValidation = [
+  param("id")
+    .notEmpty()
+    .withMessage("Book ID cannot be empty")
+    .isMongoId()
+    .withMessage("Invalid Mongo ID"),
+];
+
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
 
@@ -56,4 +64,4 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
-export { addBookValidation, handleValidationErrors };
+export { addBookValidation, handleValidationErrors, mongoIdValidation };
