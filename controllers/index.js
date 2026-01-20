@@ -117,7 +117,27 @@ const updateBookController = async (req, res) => {
       data: book,
     });
   } catch (error) {
-    console.error(error);
+    console.error(`Error in updateBookController: ${error.message}`);
+    res.status(500).json("Internal server error");
+  }
+};
+
+const deleteBookController = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const book = await Book.findByIdAndDelete(id);
+    if (!book) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Book not found " });
+    }
+
+    return res
+      .status(204)
+      .json({ success: true, message: "Book successfully deleted!" });
+  } catch (error) {
+    console.error(`Error in deleteBookController: ${error.message}`);
+    res.status(500).json("Internal server error");
   }
 };
 
@@ -126,4 +146,5 @@ export {
   getBookByIdController,
   addBookController,
   updateBookController,
+  deleteBookController,
 };

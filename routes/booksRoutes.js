@@ -9,29 +9,40 @@ import {
   getBookByIdController,
   addBookController,
   updateBookController,
+  deleteBookController,
 } from "../controllers/index.js";
 
 const bookRoutes = Router();
 
 bookRoutes.get("/", getAllBooksController);
+
 bookRoutes.get(
   "/:id",
   mongoIdValidation,
   handleValidationErrors,
   getBookByIdController,
 );
+
 bookRoutes.post(
   "/",
   addBookValidation,
   handleValidationErrors,
   addBookController,
 );
+
 bookRoutes.put(
   "/:id",
   mongoIdValidation,
   addBookValidation,
   handleValidationErrors,
   updateBookController,
+);
+
+bookRoutes.delete(
+  "/:id",
+  mongoIdValidation,
+  handleValidationErrors,
+  deleteBookController,
 );
 
 export default bookRoutes;
