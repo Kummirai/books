@@ -12,7 +12,11 @@ app.get("/", (req, res) => {
   return res.status(200).json("Hello to the books api");
 });
 
-app.listen(port, () => {
-  connectToDB();
-  console.log(`Server running on port ${port}`);
-});
+const appInit = async () => {
+  await connectToDB();
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+};
+
+appInit();
