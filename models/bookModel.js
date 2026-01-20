@@ -30,11 +30,11 @@ const bookSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    "ISBN-10": {
+    ISBN_10: {
       type: String,
       required: true,
     },
-    "ISBN-13": {
+    ISBN_13: {
       type: String,
       required: true,
     },

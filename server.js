@@ -6,10 +6,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+app.use(express.json());
 
 const port = process.env.PORT || 3000;
 
-app.get("/api/books", bookRoutes);
+app.use("/api/books", bookRoutes);
 
 const appInit = async () => {
   await connectToDB();
