@@ -98,6 +98,64 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "author": {
+                  "example": "any"
+                },
+                "publisher": {
+                  "example": "any"
+                },
+                "publicationDate": {
+                  "example": "any"
+                },
+                "language": {
+                  "example": "any"
+                },
+                "pages": {
+                  "example": "any"
+                },
+                "ISBN_10": {
+                  "example": "any"
+                },
+                "ISBN_13": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     }
   }

@@ -8,6 +8,7 @@ import {
   getAllBooksController,
   getBookByIdController,
   addBookController,
+  updateBookController,
 } from "../controllers/index.js";
 
 const bookRoutes = Router();
@@ -24,6 +25,13 @@ bookRoutes.post(
   addBookValidation,
   handleValidationErrors,
   addBookController,
+);
+bookRoutes.put(
+  "/:id",
+  mongoIdValidation,
+  addBookValidation,
+  handleValidationErrors,
+  updateBookController,
 );
 
 export default bookRoutes;
