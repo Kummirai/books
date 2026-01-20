@@ -71,7 +71,7 @@ const addBookController = async (req, res) => {
     });
   } catch (error) {
     console.error(`Error in addBookController: ${error.message}`);
-    res.status(201).json("Internal server error");
+    res.status(500).json("Internal server error");
   }
 };
 
