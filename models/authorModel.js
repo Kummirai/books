@@ -19,8 +19,18 @@ const authorSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
+
+authorSchema.virtual("books", {
+  ref: "Book",
+  localField: "_id",
+  foreignField: "authors",
+});
 
 const Author = mongoose.model("Author", authorSchema);
 

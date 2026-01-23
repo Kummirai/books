@@ -4,6 +4,7 @@ import bookRoutes from "./routes/booksRoutes.js";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" with { type: "json" };
+import authorRoute from "./routes/authorsRoutes.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ const port = process.env.PORT || 3000;
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/books", bookRoutes);
+app.use("/api/authors", authorRoute);
 
 const appInit = async () => {
   await connectToDB();

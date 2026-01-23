@@ -10,7 +10,7 @@ import {
   addBookController,
   updateBookController,
   deleteBookController,
-} from "../controllers/index.js";
+} from "../controllers/booksControllers.js";
 
 const bookRoutes = Router();
 
