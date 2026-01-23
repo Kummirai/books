@@ -15,9 +15,9 @@ app.use(express.json());
 const port = process.env.PORT || 3000;
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use("/", homeRoute);
 app.use("/api/books", bookRoutes);
 app.use("/api/authors", authorRoute);
+app.use("/", homeRoute);
 
 const appInit = async () => {
   await connectToDB();
