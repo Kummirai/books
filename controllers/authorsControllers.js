@@ -5,7 +5,7 @@ const getAllAuthorsController = async (req, res) => {
     const authors = await Author.find({});
     if (authors.length < 1) {
       return res
-        .status(200)
+        .status(404)
         .json({ success: true, message: "No authors found!" });
     }
 
@@ -43,4 +43,27 @@ const addAuthorController = async (req, res) => {
   }
 };
 
-export { getAllAuthorsController, addAuthorController };
+const getAuthorByIdController = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const author = await Author.findById(id);
+    if (!author) {
+      return res
+        .status(404)
+        .json({ success: true, message: "No author found" });
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Author retrieved", data: author });
+  } catch (error) {
+    console.log(`Error in getAuthorByIdController ${error.message}`);
+    return res.status(500).json("Internal server error");
+  }
+};
+
+export {
+  getAllAuthorsController,
+  addAuthorController,
+  getAuthorByIdController,
+};
