@@ -41,6 +41,20 @@ const addBookValidation = [
     .withMessage("Invalid ISBN-13"),
 ];
 
+const addAuthorValidation = [
+  body("firstName").trim().notEmpty().withMessage("First Name Cannot be Empty"),
+  body("lastName").trim().notEmpty().withMessage("First Name Cannot be Empty"),
+  body("dateOfBirth")
+    .notEmpty()
+    .withMessage("Date of birth is required")
+    .isDate({ format: "YYYY-MM-DD", delimiters: ["-"] })
+    .withMessage("Date of birth must be in YYYY-MM-DD format"),
+  body("nationality")
+    .trim()
+    .notEmpty()
+    .withMessage("Nationality cannot be empty"),
+];
+
 const mongoIdValidation = [
   param("id")
     .notEmpty()
@@ -64,4 +78,9 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
-export { addBookValidation, handleValidationErrors, mongoIdValidation };
+export {
+  addBookValidation,
+  handleValidationErrors,
+  mongoIdValidation,
+  addAuthorValidation,
+};
