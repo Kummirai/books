@@ -96,9 +96,29 @@ const updateAuthorController = async (req, res) => {
   }
 };
 
+const deleteAuthorController = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const book = await Author.findByIdAndDelete(id);
+    if (!book) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Author not found " });
+    }
+
+    return res
+      .status(204)
+      .json({ success: true, message: "Author successfully deleted!" });
+  } catch (error) {
+    console.error(`Error in deleteAuthorController: ${error.message}`);
+    res.status(500).json("Internal server error");
+  }
+};
+
 export {
   getAllAuthorsController,
   addAuthorController,
   getAuthorByIdController,
   updateAuthorController,
+  deleteAuthorController,
 };

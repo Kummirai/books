@@ -4,6 +4,7 @@ import {
   getAllAuthorsController,
   getAuthorByIdController,
   updateAuthorController,
+  deleteAuthorController,
 } from "../controllers/authorsControllers.js";
 import {
   addAuthorValidation,
@@ -34,6 +35,13 @@ authorRoute.put(
   addAuthorValidation,
   handleValidationErrors,
   updateAuthorController,
+);
+
+authorRoute.delete(
+  "/:id",
+  mongoIdValidation,
+  handleValidationErrors,
+  deleteAuthorController,
 );
 
 export default authorRoute;
