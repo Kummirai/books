@@ -5,12 +5,22 @@
     "description": "An api for books and authors",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "books-project-xqrb.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/books/": {
       "get": {
         "description": "",

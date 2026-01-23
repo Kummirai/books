@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" with { type: "json" };
 import authorRoute from "./routes/authorsRoutes.js";
+import homeRoute from "./routes/homeRoute.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 const port = process.env.PORT || 3000;
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/", homeRoute);
 app.use("/api/books", bookRoutes);
 app.use("/api/authors", authorRoute);
 
