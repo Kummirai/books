@@ -3,6 +3,7 @@ import {
   addAuthorController,
   getAllAuthorsController,
   getAuthorByIdController,
+  updateAuthorController,
 } from "../controllers/authorsControllers.js";
 import {
   addAuthorValidation,
@@ -19,12 +20,20 @@ authorRoute.post(
   handleValidationErrors,
   addAuthorController,
 );
- 
+
 authorRoute.get(
   "/:id",
   mongoIdValidation,
   handleValidationErrors,
   getAuthorByIdController,
+);
+
+authorRoute.put(
+  "/:id",
+  mongoIdValidation,
+  addAuthorValidation,
+  handleValidationErrors,
+  updateAuthorController,
 );
 
 export default authorRoute;

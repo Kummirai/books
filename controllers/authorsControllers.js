@@ -62,8 +62,43 @@ const getAuthorByIdController = async (req, res) => {
   }
 };
 
+const updateAuthorController = async (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName, dateOfBirth, nationality } = req.body;
+  try {
+    const author = await Author.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          firstName,
+          lastName,
+          dateOfBirth,
+          nationality,
+        },
+      },
+      { new: true },
+    );
+
+    if (!author) {
+      res
+        .status(400)
+        .json({ success: false, message: "Could not update author" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Author successfully updated",
+      data: author,
+    });
+  } catch (error) {
+    console.log(`Error in updateAuthorController ${error.message}`);
+    return res.status(500).json("Internal server error");
+  }
+};
+
 export {
   getAllAuthorsController,
   addAuthorController,
   getAuthorByIdController,
+  updateAuthorController,
 };
