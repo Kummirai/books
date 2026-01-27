@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   githubAthenticateController,
   githubCallbackController,
-} from "../controllers/authController";
+} from "../controllers/authController.js";
 
 const authRoute = Router();
 

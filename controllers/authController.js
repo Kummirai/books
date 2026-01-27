@@ -7,7 +7,7 @@ const githubAthenticateController = () => {
 const githubCallbackController = () => {
   (passport.authenticate("github", { failureRedirect: "/login" }),
     function (req, res) {
-      res.redirect("/api-docs");
+      res.redirect("/");
     });
 };
 export { githubAthenticateController, githubCallbackController };
