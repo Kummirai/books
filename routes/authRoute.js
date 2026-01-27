@@ -1,12 +1,12 @@
 import { Router } from "express";
 import {
-  githubAthenticateController,
+  githubAuthenticateController,
   githubCallbackController,
 } from "../controllers/authController.js";
 
 const authRoute = Router();
 
-authRoute.get("/", githubAthenticateController);
+authRoute.get("/", githubAuthenticateController);
 authRoute.get("/callback", githubCallbackController);
 
 export default authRoute;

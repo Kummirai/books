@@ -7,47 +7,35 @@ import swaggerDocument from "./swagger.json" with { type: "json" };
 import authorRoute from "./routes/authorsRoutes.js";
 import homeRoute from "./routes/homeRoute.js";
 import authRoute from "./routes/authRoute.js";
-import { Strategy as GitHubStrategy } from "passport-github2";
 import passport from "passport";
 import session from "express-session";
+import cors from "cors";
 
 dotenv.config();
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+
 const app = express();
+app.use(cors(corsOptions));
 app.use(
   session({
-    secret: "mySecret",
+    secret: "MYSECRET",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    },
   }),
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
-
-passport.use(
-  new GitHubStrategy(
-    {
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "http://127.0.0.1:3000/auth/github/callback",
-    },
-    function (accessToken, refreshToken, profile, done) {
-      // User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(null, profile);
-      // });
-    },
-  ),
-);
-
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function (user, done) {
-  done(null, user);
-});
 
 const port = process.env.PORT || 3000;
 
