@@ -5,11 +5,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const githubAuthenticateController = (req, res, next) => {
-  console.log("Starting GitHub authentication...");
-
   passport.authenticate("github", {
     scope: ["user:email"],
-    state: req.query.redirect || "/",
   })(req, res, next);
 };
 
@@ -22,7 +19,14 @@ const githubCallbackController = (req, res, next) => {
 
 const logoutController = async (req, res) => {
   req.logout(() => {
-    res.status(200).json({ success: true, message: "Logout successfully" });
+    if (req.accepts("json") && !req.accepts("html")) {
+      return res.status(200).json({
+        success: true,
+        message: "Logout successful",
+      });
+    }
+
+    res.redirect("/");
   });
 };
 

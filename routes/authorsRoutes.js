@@ -11,12 +11,14 @@ import {
   handleValidationErrors,
   mongoIdValidation,
 } from "../middleware/validator.js";
+import { isAuthenticated } from "../middleware/isAuthenticated.js";
 
 const authorRoute = Router();
 
 authorRoute.get("/", getAllAuthorsController);
 authorRoute.post(
   "/",
+  isAuthenticated,
   addAuthorValidation,
   handleValidationErrors,
   addAuthorController,
@@ -31,6 +33,7 @@ authorRoute.get(
 
 authorRoute.put(
   "/:id",
+  isAuthenticated,
   mongoIdValidation,
   addAuthorValidation,
   handleValidationErrors,
@@ -39,6 +42,7 @@ authorRoute.put(
 
 authorRoute.delete(
   "/:id",
+  isAuthenticated,
   mongoIdValidation,
   handleValidationErrors,
   deleteAuthorController,

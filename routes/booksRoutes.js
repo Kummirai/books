@@ -11,6 +11,7 @@ import {
   updateBookController,
   deleteBookController,
 } from "../controllers/booksControllers.js";
+import { isAuthenticated } from "../middleware/isAuthenticated.js";
 
 const bookRoutes = Router();
 
@@ -25,6 +26,7 @@ bookRoutes.get(
 
 bookRoutes.post(
   "/",
+  isAuthenticated,
   addBookValidation,
   handleValidationErrors,
   addBookController,
@@ -32,6 +34,7 @@ bookRoutes.post(
 
 bookRoutes.put(
   "/:id",
+  isAuthenticated,
   mongoIdValidation,
   addBookValidation,
   handleValidationErrors,
@@ -40,6 +43,7 @@ bookRoutes.put(
 
 bookRoutes.delete(
   "/:id",
+  isAuthenticated,
   mongoIdValidation,
   handleValidationErrors,
   deleteBookController,
