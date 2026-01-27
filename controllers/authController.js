@@ -1,0 +1,13 @@
+import passport from "passport";
+
+const githubAthenticateController = () => {
+  passport.authenticate("github", { scope: ["user:mail"] });
+};
+
+const githubCallbackController = () => {
+  (passport.authenticate("github", { failureRedirect: "/login" }),
+    function (req, res) {
+      res.redirect("/api-docs");
+    });
+};
+export { githubAthenticateController, githubCallbackController };
