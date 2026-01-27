@@ -34,12 +34,20 @@ passport.use(
       callbackURL: "http://127.0.0.1:3000/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
-      User.findOrCreate({ githubId: profile.id }, function (err, user) {
-        return done(err, user);
-      });
+      // User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return done(null, profile);
+      // });
     },
   ),
 );
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
 
 const port = process.env.PORT || 3000;
 
