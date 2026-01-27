@@ -337,9 +337,16 @@
     "/auth/github/": {
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "redirect",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -350,6 +357,16 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/auth/github/logout": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

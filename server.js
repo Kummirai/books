@@ -14,7 +14,11 @@ import cors from "cors";
 dotenv.config();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: [
+    "http://localhost:3000",
+    "https://editor.swagger.io",
+    "http://localhost:8080",
+  ],
   credentials: true,
 };
 

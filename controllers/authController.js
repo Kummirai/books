@@ -5,14 +5,25 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const githubAuthenticateController = (req, res, next) => {
-  passport.authenticate("github", { scope: ["user:email"] })(req, res, next);
+  console.log("Starting GitHub authentication...");
+
+  passport.authenticate("github", {
+    scope: ["user:email"],
+    state: req.query.redirect || "/",
+  })(req, res, next);
 };
 
-const githubCallbackController = () => {
-  (passport.authenticate("github", { failureRedirect: "/api-docs" }),
-    function (req, res) {
-      res.redirect("/");
-    });
+const githubCallbackController = (req, res, next) => {
+  passport.authenticate("github", {
+    failureRedirect: "/api-docs",
+    successRedirect: "/",
+  })(req, res, next);
+};
+
+const logoutController = async (req, res) => {
+  req.logout(() => {
+    res.status(200).json({ success: true, message: "Logout successfully" });
+  });
 };
 
 passport.use(
@@ -20,7 +31,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "http://127.0.0.1:3000/auth/github/callback",
+      callbackURL: "http://localhost:3000/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       // User.findOrCreate({ githubId: profile.id }, function (err, user) {
@@ -39,4 +50,8 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
-export { githubAuthenticateController, githubCallbackController };
+export {
+  githubAuthenticateController,
+  githubCallbackController,
+  logoutController,
+};
