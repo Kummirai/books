@@ -355,13 +355,6 @@
     "/auth/github/": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "redirect",
-            "in": "query",
-            "type": "string"
-          }
-        ],
         "responses": {
           "default": {
             "description": ""

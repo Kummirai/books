@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy as GitHubStrategy } from "passport-github2";
 import dotenv from "dotenv";
+import User from "../models/userModel.js";
 
 dotenv.config();
 
@@ -37,11 +38,19 @@ passport.use(
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: "http://localhost:3000/auth/github/callback",
     },
-    function (accessToken, refreshToken, profile, done) {
-      // User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      console.log(profile);
-      return done(null, profile);
-      // });
+    async function (accessToken, refreshToken, profile, done) {
+      const user = await User.findOne({ githubId: profile.id });
+      if (!user) {
+        const newUser = new User({
+          displayName: profile.displayName,
+          githubId: profile.id,
+        });
+
+        const user = await newUser.save();
+        return done(null, user);
+      } else {
+        return done(null, user);
+      }
     },
   ),
 );

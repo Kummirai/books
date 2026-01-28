@@ -14,11 +14,7 @@ import cors from "cors";
 dotenv.config();
 
 const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "https://editor.swagger.io",
-    "http://localhost:8080",
-  ],
+  origin: ["*"],
   credentials: true,
 };
 
@@ -26,7 +22,7 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(
   session({
-    secret: "MYSECRET",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
