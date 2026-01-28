@@ -39,17 +39,22 @@ passport.use(
       callbackURL: "http://localhost:3000/auth/github/callback",
     },
     async function (accessToken, refreshToken, profile, done) {
-      const user = await User.findOne({ githubId: profile.id });
-      if (!user) {
-        const newUser = new User({
-          displayName: profile.displayName,
-          githubId: profile.id,
-        });
+      try {
+        const user = await User.findOne({ githubId: profile.id });
+        if (!user) {
+          const newUser = new User({
+            displayName: profile.displayName,
+            githubId: profile.id,
+          });
 
-        const user = await newUser.save();
-        return done(null, user);
-      } else {
-        return done(null, user);
+          const user = await newUser.save();
+          return done(null, user);
+        } else {
+          return done(null, user);
+        }
+      } catch (error) {
+        console.log(`Error in github strategy middleware ${error.message}`);
+        return done(error, null);
       }
     },
   ),

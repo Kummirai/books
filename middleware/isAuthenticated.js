@@ -1,7 +1,5 @@
 const isAuthenticated = (req, res, next) => {
-  console.log(req.user);
-
-  if (req.user === undefined) {
+  if (!req.user) {
     return res.status(401).json("You do not have access");
   }
   next();
